@@ -1,9 +1,10 @@
+import Kingfisher
 import SnapKit
 import UIKit
 
 class MovieViewController: UIViewController {
     
-
+let viewModel = NetworkViewModel()
     
     private lazy var tablewView: UITableView = {
         let table = UITableView()
@@ -19,15 +20,17 @@ class MovieViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         setupFunctions()
         
-        
+
     }
     
     private func setupFunctions() {
         setupUI()
         setupComponents()
         setupConstraints()
+        configViewModel()
     }
     
     private func setupComponents() {
@@ -43,17 +46,30 @@ class MovieViewController: UIViewController {
     private func setupUI() {
         view.backgroundColor = UIColor(named: "purple")
     }
+    
+    private func configViewModel() {
+        viewModel.loadMovie()
+        viewModel.reloadTableView = {
+            DispatchQueue.main.async {
+                self.tablewView.reloadData()
+            }
+        }
+    }
 }
 
 extension MovieViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return movies.count
+        return viewModel.numberOfCells
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: MovieTableViewCell.identifier, for: indexPath) as? MovieTableViewCell
-        cell?.setupInformations(title: movies[indexPath.row].title, releaseData: movies[indexPath.row].releaseDate)
+        
+        let model = viewModel.getCell(index: indexPath)
+        cell?.title.text = model.title
+        cell?.releaseData.text = model.releaseDate
+        cell?.image.conf
         
         return cell ?? UITableViewCell()
     }

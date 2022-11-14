@@ -4,7 +4,7 @@ class MovieTableViewCell: UITableViewCell {
     
     static let identifier: String = "CustomCell"
     
-    private lazy var stackViewHorizontal: UIStackView = {
+    private lazy var stackViewMain: UIStackView = {
         let stack = UIStackView()
         
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -13,7 +13,7 @@ class MovieTableViewCell: UITableViewCell {
         stack.spacing = 16
         return stack
     }()
-    private lazy var stackViewVertical: UIStackView = {
+    private lazy var stackViewTexts: UIStackView = {
         let stack = UIStackView()
         
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -22,7 +22,7 @@ class MovieTableViewCell: UITableViewCell {
         return stack
     }()
     
-    private lazy var title: UILabel = {
+    private(set) lazy var title: UILabel = {
         let label = UILabel()
         
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -31,7 +31,7 @@ class MovieTableViewCell: UITableViewCell {
         return label
     }()
     
-    private lazy var releaseData: UILabel = {
+    private(set) lazy var releaseData: UILabel = {
         let label = UILabel()
         
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -40,15 +40,15 @@ class MovieTableViewCell: UITableViewCell {
         return label
     }()
     
-    private lazy var image: UIImageView = {
+    private(set) lazy var image: UIImageView = {
         let image = UIImageView()
-        
         image.translatesAutoresizingMaskIntoConstraints = false
-        image.image = UIImage(named: "image")
-        
+        image.layer.cornerRadius = 18.0
+        image.layer.masksToBounds = true
+        image.backgroundColor = .red
         return image
     }()
-
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -59,7 +59,7 @@ class MovieTableViewCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     
     private func setupFunctions() {
         setupComponents()
@@ -67,24 +67,22 @@ class MovieTableViewCell: UITableViewCell {
     }
     
     private func setupComponents() {
-        contentView.addSubview(stackViewHorizontal)
-        stackViewHorizontal.addArrangedSubview(image)
-        stackViewHorizontal.addArrangedSubview(stackViewVertical)
-        stackViewVertical.addArrangedSubview(title)
-        stackViewVertical.addArrangedSubview(releaseData)
+        contentView.addSubview(stackViewMain)
+        stackViewMain.addArrangedSubview(image)
+        stackViewMain.addArrangedSubview(stackViewTexts)
+        stackViewTexts.addArrangedSubview(title)
+        stackViewTexts.addArrangedSubview(releaseData)
         
     }
     
     private func setupConstraints() {
-        stackViewHorizontal.snp.makeConstraints { make in
+        stackViewMain.snp.makeConstraints { make in
             make.top.bottom.leading.equalTo(contentView)
         }
+        
+//        image.snp.makeConstraints { make in
+//            make.height.equalTo(120)
+//            make.width.equalTo(90)
+//        }
     }
-    
-    func setupInformations(title: String, releaseData: String) {
-//        self.image.image = UIImage(named: "image")
-        self.title.text = title
-        self.releaseData.text = "Lançamento: \(releaseData)"
-    }
-
 }
