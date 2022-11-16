@@ -1,10 +1,3 @@
-//
-//  NetworkViewModel.swift
-//  TheMovieDBSwift
-//
-//  Created by Maria Alice Rodrigues Fortunato on 14/11/22.
-//
-
 import Foundation
 
 class NetworkViewModel {
@@ -17,7 +10,6 @@ class NetworkViewModel {
             self.reloadTableView?()
         }
     }
-    
     
     func loadMovie() {
         service.fetchPopularMovies { result in
@@ -41,7 +33,7 @@ class NetworkViewModel {
                 id: movie.id ?? 0,
                 title: movie.title ?? "",
                 overview: movie.overview ?? "" ,
-                releaseDate: movie.releaseDate ?? "",
+                releaseDate: "Lançamento: \(movie.releaseDate ?? "")" ,
                 image: "https://image.tmdb.org/t/p/w500\(movie.image ?? "")",
                 voteAverage: movie.voteAverage ?? 0
             )
@@ -56,22 +48,6 @@ class NetworkViewModel {
     
     func getCell(index: IndexPath) -> MovieCellModel {
         return model[index.row]
-    }
-    
-    var title: String {
-        return model[0].title
-    }
-    
-    var image: URL {
-        return URL(string: "https://image.tmdb.org/t/p/w500\(model[0].image)") ?? URL(fileURLWithPath: "")
-    }
-    
-    var overview: String {
-        return model[0].overview
-    }
-    
-    var voteAverage: String {
-        return "\(model[0].voteAverage)"
     }
 }
 

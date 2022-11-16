@@ -6,6 +6,16 @@ class MovieViewController: UIViewController {
     
 let viewModel = NetworkViewModel()
     
+    private lazy var titleTableView: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont(name: "Arial Bold", size: 24)
+        label.textColor = .white
+        label.textAlignment = .center
+        label.text = "Filmes populares"
+        return label
+    }()
+    
     private lazy var tablewView: UITableView = {
         let table = UITableView()
         
@@ -20,10 +30,7 @@ let viewModel = NetworkViewModel()
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         setupFunctions()
-        
-
     }
     
     private func setupFunctions() {
@@ -34,12 +41,22 @@ let viewModel = NetworkViewModel()
     }
     
     private func setupComponents() {
+        view.addSubview(titleTableView)
         view.addSubview(tablewView)
     }
     
     private func setupConstraints() {
+        
+        titleTableView.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide)
+            make.trailing.leading.equalTo(view)
+            make.bottom.equalTo(tablewView.snp_topMargin).offset(-16)
+        }
+        
         tablewView.snp.makeConstraints { make in
-            make.top.bottom.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            make.top.equalTo(titleTableView.snp_bottomMargin)
+            make.leading.trailing.equalTo(view)
+            make.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
     
