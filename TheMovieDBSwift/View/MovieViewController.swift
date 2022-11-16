@@ -50,11 +50,10 @@ let viewModel = NetworkViewModel()
         titleTableView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide)
             make.trailing.leading.equalTo(view)
-            make.bottom.equalTo(tablewView.snp_topMargin).offset(-16)
         }
         
         tablewView.snp.makeConstraints { make in
-            make.top.equalTo(titleTableView.snp_bottomMargin)
+            make.top.equalTo(titleTableView.snp_bottomMargin).inset(-16)
             make.leading.trailing.equalTo(view)
             make.bottom.equalTo(view.safeAreaLayoutGuide)
         }

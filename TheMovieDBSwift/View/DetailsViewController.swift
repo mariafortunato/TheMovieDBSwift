@@ -42,6 +42,11 @@ class DetailsViewController: UIViewController {
         return label
     }()
     
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.navigationBar.topItem?.title = ""
+        navigationController?.navigationBar.tintColor = .white
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -67,29 +72,28 @@ class DetailsViewController: UIViewController {
     private func setupConstraints() {
         titleMovie.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide)
-            make.trailing.leading.equalTo(view)
+            make.trailing.equalTo(-16)
+            make.leading.equalTo(16)
         }
         
         image.snp.makeConstraints { make in
-            make.top.equalTo(titleMovie.snp_bottomMargin)
+            make.top.equalTo(titleMovie.snp_bottomMargin).inset(-42)
             make.height.equalTo(264)
             make.width.equalTo(192)
             make.centerX.equalTo(view.snp.centerX)
         }
         
         voteAverage.snp.makeConstraints { make in
-            make.top.equalTo(image.snp_bottomMargin)
-            make.leading.equalTo(view)
-            make.trailing.equalTo(view)
-            make.bottom.equalTo(overview.snp_topMargin)
+            make.top.equalTo(image.snp_bottomMargin).inset(-42)
+            make.leading.equalTo(16)
+            make.trailing.equalTo(-16)
             
         }
         
         overview.snp.makeConstraints { make in
-            make.top.equalTo(voteAverage.snp_bottomMargin)
-            make.trailing.equalTo(view)
-            make.leading.equalTo(view)
-            make.bottom.equalTo(view.safeAreaLayoutGuide)
+            make.top.equalTo(voteAverage.snp_bottomMargin).inset(-42)
+            make.trailing.equalTo(-16)
+            make.leading.equalTo(16)
         }
     }
     
