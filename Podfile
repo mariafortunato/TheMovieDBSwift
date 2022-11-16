@@ -7,5 +7,5 @@ target 'TheMovieDBSwift' do
   
   # Pods for TheMovieDBSwift
   pod 'SnapKit'
-  pod 'Kingfisher'
+  pod 'SDWebImage'
 end

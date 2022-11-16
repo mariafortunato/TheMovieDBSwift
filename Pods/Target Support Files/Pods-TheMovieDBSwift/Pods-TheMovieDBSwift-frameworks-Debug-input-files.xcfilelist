@@ -1,3 +1,3 @@
 ${PODS_ROOT}/Target Support Files/Pods-TheMovieDBSwift/Pods-TheMovieDBSwift-frameworks.sh
-${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework
+${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework
 ${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework
