@@ -3,6 +3,16 @@ import UIKit
 class DetailsViewController: UIViewController {
     
     private let viewModel = DetailsViewModel()
+    private var id: Int
+    
+    init(id: Int) {
+        self.id = id
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     private lazy var titleMovie: UILabel = {
         let label = UILabel()
@@ -102,13 +112,16 @@ class DetailsViewController: UIViewController {
     }
     
     private func setupViewModel() {
-        viewModel.loadDetails()
-        DispatchQueue.main.async {
-            self.titleMovie.text = self.viewModel.title
-            self.image.sd_setImage(with: self.viewModel.image)
-            self.voteAverage.text = self.viewModel.voteAverage
-            self.overview.text = self.viewModel.overview
-            self.overview.attributedText = NSAttributedString(string: self.viewModel.overview).withLineSpacing(8)
+        viewModel.loadDetails(id: id)
+        viewModel.reload = {
+            DispatchQueue.main.async {
+                self.titleMovie.text = self.viewModel.title
+                self.image.sd_setImage(with: self.viewModel.image)
+                self.voteAverage.text = self.viewModel.voteAverage
+                self.overview.text = self.viewModel.overview
+                self.overview.attributedText = NSAttributedString(string: self.viewModel.overview).withLineSpacing(8)
+            }
         }
+        
     }
 }

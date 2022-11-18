@@ -3,35 +3,35 @@ import Foundation
 class DetailsViewModel {
     
     private let service = NetworkService()
-    var model: MovieModel?
+    var model: Movie?
     var reload: (() -> Void)?
     
-    func loadDetails() {
-            service.fetchPopularMovies { result in
-                switch result {
-                case .success(let success):
-                    self.model = success
-                    self.reload?()
-                case .failure(let failure):
-                    print(failure)
-                }
+    func loadDetails(id: Int) {
+        
+        service.fetchMovieDetails(id: id) { result in
+            switch result {
+            case .success(let success):
+                self.model = success
+                self.reload?()
+            case .failure(let failure):
+                print(failure)
             }
         }
-    
+    }
     
     var title: String {
-        return model?.results[0].title ?? ""
+        return model?.title ?? ""
     }
     
     var image: URL {
-        return URL(string: "https://image.tmdb.org/t/p/w500\(model?.results[0].image ?? "")") ?? URL(fileURLWithPath: "")
+        return URL(string: "https://image.tmdb.org/t/p/w500\(model?.image ?? "")") ?? URL(fileURLWithPath: "")
     }
     
     var overview: String {
-        return model?.results[0].overview ?? ""
+        return model?.overview ?? ""
     }
     
     var voteAverage: String {
-        return "Classificação dos usuários: \(model?.results[0].voteAverage ?? 0)"
+        return "Classificação dos usuários: \(model?.voteAverage ?? 0)"
     }
 }

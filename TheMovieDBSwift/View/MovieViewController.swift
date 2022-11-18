@@ -4,7 +4,7 @@ import UIKit
 
 class MovieViewController: UIViewController {
     
-let viewModel = NetworkViewModel()
+    let viewModel = NetworkViewModel()
     
     private lazy var titleTableView: UILabel = {
         let label = UILabel()
@@ -93,7 +93,9 @@ extension MovieViewController: UITableViewDataSource {
 
 extension MovieViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let details = DetailsViewController()
+        
+        let id = viewModel.didSelectRowMovie(index: indexPath)
+        let details = DetailsViewController(id: id)
         
         navigationController?.pushViewController(details, animated: true)
     }

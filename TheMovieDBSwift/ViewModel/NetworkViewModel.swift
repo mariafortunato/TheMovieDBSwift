@@ -49,6 +49,10 @@ class NetworkViewModel {
     func getCell(index: IndexPath) -> MovieCellModel {
         return model[index.row]
     }
+    
+    func didSelectRowMovie(index: IndexPath) -> Int {
+        return model[index.row].id
+    }
 }
 
 struct MovieCellModel {
